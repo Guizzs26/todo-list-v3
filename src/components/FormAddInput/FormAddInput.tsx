@@ -1,6 +1,6 @@
 import { useState, FormEvent, ChangeEvent } from "react";
 
-import { TaskItem } from "../TaskItem/task.item.types";
+import { TaskItemType } from "../TaskItem/task.item.types";
 import { FormAddInputProps } from "./form.add.input.types";
 import { generateUniqueId } from "../../utils/generateUniqueID";
 
@@ -12,7 +12,7 @@ export default function FormAddInput({ onAddTask }: FormAddInputProps) {
 
     if (!taskName.trim()) return;
 
-    const newTask: TaskItem = {
+    const newTask: TaskItemType = {
       id: generateUniqueId(),
       taskName,
       isCompleted: false,

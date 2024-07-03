@@ -1,23 +1,39 @@
 import { useState } from "react";
 
-import { TaskItem } from "./components/TaskItem/task.item.types";
+import { TaskItemType } from "./components/TaskItem/task.item.types";
 
 import FormAddInput from "./components/FormAddInput/FormAddInput";
-// import TaskList from "./components/TaskList";
+import TaskList from "./components/TaskList/TaskList";
 // import Stats from "./components/Stats";
 
 export default function App() {
-  const [tasks, setTasks] = useState<TaskItem[]>([]);
+  const [tasks, setTasks] = useState<TaskItemType[]>([]);
 
-  const handleAddTask = (newTask: TaskItem) => {
+  const handleAddTask = (newTask: TaskItemType) => {
     setTasks((prevTasks) => [...prevTasks, newTask]);
+  };
+
+  const handleDeleteTask = (id: string) => {
+    setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
+  };
+
+  const handleToggleTask = (id: string) => {
+    setTasks((prevTasks) =>
+      prevTasks.map((task) =>
+        task.id === id ? { ...task, isCompleted: !task.isCompleted } : task
+      )
+    );
   };
 
   return (
     <div>
       <FormAddInput onAddTask={handleAddTask} />
-      {/* <TaskList />
-      <Stats />  */}
+      <TaskList
+        tasks={tasks}
+        onDeleteTask={handleDeleteTask}
+        onToggleTask={handleToggleTask}
+      />
+      {/* <Stats />  */}
     </div>
   );
 }
