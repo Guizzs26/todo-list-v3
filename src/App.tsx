@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { TaskItemType } from "./components/TaskItem/task.item.types";
 
@@ -8,6 +8,25 @@ import Stats from "./components/Stats/Stats";
 
 export default function App() {
   const [tasks, setTasks] = useState<TaskItemType[]>([]);
+
+  useEffect(() => {
+    if (tasks.length > 0) localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
+
+  useEffect(() => {
+    const storedTasks = localStorage.getItem("tasks");
+
+    if (storedTasks) {
+      try {
+        const parsedTasks = JSON.parse(storedTasks) as TaskItemType[];
+
+        setTasks(parsedTasks);
+      } catch (error) {
+        // Handle the error, such as clearing local storage or setting a default value for tasks
+        console.error("Error parsing local storage data:", error);
+      }
+    }
+  }, []);
 
   const handleAddTask = (newTask: TaskItemType) => {
     setTasks((prevTasks) => [...prevTasks, newTask]);
