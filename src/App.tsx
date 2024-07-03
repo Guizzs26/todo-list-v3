@@ -4,7 +4,7 @@ import { TaskItemType } from "./components/TaskItem/task.item.types";
 
 import FormAddInput from "./components/FormAddInput/FormAddInput";
 import TaskList from "./components/TaskList/TaskList";
-// import Stats from "./components/Stats";
+import Stats from "./components/Stats/Stats";
 
 export default function App() {
   const [tasks, setTasks] = useState<TaskItemType[]>([]);
@@ -33,7 +33,7 @@ export default function App() {
         onDeleteTask={handleDeleteTask}
         onToggleTask={handleToggleTask}
       />
-      {/* <Stats />  */}
+      <Stats tasks={tasks} />
     </div>
   );
 }
